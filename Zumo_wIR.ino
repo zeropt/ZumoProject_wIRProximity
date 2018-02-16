@@ -141,7 +141,7 @@ void loop()
   }
   else
   {
-    // otherwise, go
+    // otherwise, track and move
 
     if (rTurn) {
       motors.setSpeeds(FULL_SPEED, -FULL_SPEED);
