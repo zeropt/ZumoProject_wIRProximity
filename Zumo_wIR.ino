@@ -37,6 +37,8 @@ class IRProximity {
 Adafruit_seesaw ss;
 
 #define LED 13
+
+#define BAT A1
  
 // this might need to be tuned for different lighting conditions, surfaces, etc.
 #define QTR_THRESHOLD  400 // microseconds
@@ -58,8 +60,8 @@ unsigned int sensor_values[NUM_SENSORS];
  
 ZumoReflectanceSensorArray sensors(QTR_NO_EMITTER_PIN);
 
-#define FRONT_DURATION 6 //ms
-#define SIDE_DURATION 20 //ms
+#define FRONT_DURATION 10 //ms
+#define SIDE_DURATION 25 //ms
 
 IRProximity frontLeft(FRONT_DURATION);
 IRProximity frontRight(FRONT_DURATION);
@@ -110,6 +112,9 @@ void setup()
 
 void loop()
 {
+  unsigned int batteryVoltage = analogRead(BAT) * 5000L * 3/2 / 1023;
+  digitalWrite(LED, batteryVoltage < 4500);
+  
   if (button.isPressed())
   {
     // if button is pressed, stop and wait for another press to go again
